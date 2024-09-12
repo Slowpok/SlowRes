@@ -8,10 +8,10 @@ import math
 import NN_init
 
 
-if not os.path.exists('logs'):
-    os.mkdir('logs')
-
-writer = SummaryWriter("logs")
+# if not os.path.exists('logs'):
+#     os.mkdir('logs')
+#
+# writer = SummaryWriter("logs")
 
 def evaluate(model, dataloader, loss_fn, best_acc):
     losses = []
