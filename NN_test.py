@@ -10,6 +10,8 @@ import torch.utils.data as data
 from keras._tf_keras.keras.preprocessing.sequence import pad_sequences
 from keras import utils
 
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
 # dannye
 ee = pd.read_csv(r"C:\Users\79118\OneDrive\Документы\Нейросет\Материалы датасет3.csv",
                          names=['title', 'class'], encoding='Windows-1251', delimiter=';', header=0)
@@ -19,10 +21,14 @@ y_mass = utils.to_categorical(ee['class'], 2)
 
 x_mass = pad_sequences(NN_training.string_list_to_sequence(x_mass), NN_init.size_of_array)
 
+x_mass = torch.Tensor(x_mass).to(device)
+y_mass = torch.Tensor(y_mass).to(device)
+
 MyDataset = Datasets.MyDataset(x_mass, y_mass)
 
 train_loader = data.DataLoader(MyDataset, batch_size=NN_init.batch_size, shuffle=True, pin_memory=True)
 val_loader = data.DataLoader(MyDataset, batch_size=NN_init.batch_size, shuffle=True, pin_memory=True)
+
 
 # setka
 # eto poka ne ispolzuem
@@ -33,7 +39,6 @@ resnet34 = Resnet.Resnet("resnet34", size_token=NN_init.size_of_array, unique_wo
 # resnet101 = Resnet.Resnet("resnet101", size_token=NN_init.size_of_array, unique_words=x_mass.shape[0])
 
 conv_net = resnet34
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 conv_net = conv_net.to(device)
 loss_fn = torch.nn.CrossEntropyLoss()
 

@@ -4,8 +4,8 @@ import torch
 class MyDataset(data.Dataset):
 
     def __init__(self, X, y):
-        self.X = torch.Tensor(X).float()
-        self.y = torch.Tensor(y).float()
+        self.X = X.float()
+        self.y = y.float()
 
 
     def __len__(self):
