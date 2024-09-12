@@ -36,6 +36,7 @@ def evaluate(model, dataloader, loss_fn, best_acc):
             num_correct += torch.sum(y_pred == y_bbb)
 
     accuracy = num_correct / num_elements
+
     if best_acc < accuracy:
         # torch.save(model.state_dict(), "best_model.pth")
         torch.save(model, "whole_best_model.pth") # пока что сохраняем всю модель, в не словарь
@@ -85,7 +86,9 @@ def training(model, loss_fn, optimizer, train_loader, val_loader, n_epoch=3):
             print("acc")
             # model_answers = torch.round(logits)
             train_accuracy = torch.sum(torch.argmax(y_batch, dim=1) == model_answers) / len(y_batch)
-            acc_train.append(train_accuracy)
+            acc_train.append(train_accuracy.item())
+            print(type(train_accuracy.item()), train_accuracy.item())
+
             # writer.add_scalar('Accuracy/train', train_accuracy, num_iter)
             #########################
 
@@ -96,8 +99,6 @@ def training(model, loss_fn, optimizer, train_loader, val_loader, n_epoch=3):
         acc_val.append(val_accuracy)
         loss_val.append(val_loss)
 
-
-
     # grafiki
 
     plt.figure(figsize=(10,5))
@@ -107,7 +108,7 @@ def training(model, loss_fn, optimizer, train_loader, val_loader, n_epoch=3):
     plt.plot(acc_val, label="Доля правильных ответов на валидационной выборке")
     plt.xlabel = "Эпоха обучения"
     plt.ylabel = "Доля правильных ответов"
-    plt.title("Loss vs. epoch")
+    plt.title("Acc. vs. epoch")
     plt.legend()
 
     plt.subplot(1, 2, 2)
@@ -115,7 +116,7 @@ def training(model, loss_fn, optimizer, train_loader, val_loader, n_epoch=3):
     plt.plot(loss_val, label="Loss на валидационной выборке")
     plt.xlabel = "Эпоха обучения"
     plt.ylabel = "Loss"
-    plt.title("Acc. vs. epoch")
+    plt.title("Loss vs. epoch")
     plt.legend()
     plt.show()
 
