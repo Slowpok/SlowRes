@@ -46,7 +46,6 @@ loss_fn = torch.nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(conv_net.parameters(), lr=NN_init.learning_rate)
 conv_net_res = NN_training.training(conv_net, loss_fn, optimizer, train_loader, val_loader, n_epoch=7)
 
-# ka4estvo huyachestvo
 # Метрики качества
 digit_probabilities = conv_net_res(torch.Tensor(x_mass).long()).detach().numpy()
 print('digit_probabilities.shape:', digit_probabilities.shape)

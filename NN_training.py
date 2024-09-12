@@ -70,7 +70,8 @@ def training(model, loss_fn, optimizer, train_loader, val_loader, n_epoch=3):
             print("loss done")
             loss.backward()  # backpropagation (вычисление градиентов)
             print("back done")
-            loss_train.append(loss.data.numpy())
+            loss_train.append(loss.item())
+
             optimizer.step()  # обновление весов сети
             optimizer.zero_grad()  # обнуляем веса
             print("optimizer done")
