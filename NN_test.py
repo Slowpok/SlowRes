@@ -26,8 +26,8 @@ y_mass = torch.Tensor(y_mass).to(device)
 
 MyDataset = Datasets.MyDataset(x_mass, y_mass)
 
-train_loader = data.DataLoader(MyDataset, batch_size=NN_init.batch_size, shuffle=True, pin_memory=True)
-val_loader = data.DataLoader(MyDataset, batch_size=NN_init.batch_size, shuffle=True, pin_memory=True)
+train_loader = data.DataLoader(MyDataset, batch_size=NN_init.batch_size, shuffle=True, pin_memory=False)
+val_loader = data.DataLoader(MyDataset, batch_size=NN_init.batch_size, shuffle=True, pin_memory=False)
 
 
 # setka
