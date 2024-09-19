@@ -2,18 +2,14 @@ import matplotlib.pyplot as plt
 import numpy as np
 import torch
 import os
-
 from sklearn.metrics import accuracy_score
 from torch.utils.tensorboard import SummaryWriter
 from tqdm import tqdm
 import math
 import NN_init
 
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-# if not os.path.exists('logs'):
-#     os.mkdir('logs')
-#
-# writer = SummaryWriter("logs")
 
 def evaluate(model, dataloader, loss_fn, best_acc):
     losses = []
@@ -35,7 +31,7 @@ def evaluate(model, dataloader, loss_fn, best_acc):
             losses.append(loss.item())
 
             if len(y_batch[0].shape) == 0:
-                y_pred = torch.as_tensor([1 if x > 0.5 else 0 for x in logits])
+                y_pred = torch.as_tensor([1 if x > 0.5 else 0 for x in logits]).to(device)
                 y_bbb = y_batch
             else:
                 y_pred = torch.argmax(logits, dim=1)
@@ -95,7 +91,7 @@ def training(model, loss_fn, optimizer, train_loader, val_loader, n_epoch=3):
             # model_answers = torch.round(logits)
 
             if len(y_batch[0].shape) == 0:
-                model_answers = torch.as_tensor([1 if x > 0.5 else 0 for x in logits])
+                model_answers = torch.as_tensor([1 if x > 0.5 else 0 for x in logits]).to(device)
                 train_accuracy = torch.sum(y_batch == model_answers) / len(y_batch)
             else:
                 train_accuracy = torch.sum(torch.argmax(y_batch, dim=1) == torch.argmax(logits, dim=1)) / len(y_batch)
@@ -147,7 +143,7 @@ def evaluate_lstm(model, dataloader, loss_fn, best_acc):
         # так получаем текущий батч
         X_batch, y_batch = batch
         num_elements += len(y_batch)
-        hidden = model.init_hidden()
+        hidden = model.init_hidden().to(device)
 
         with torch.no_grad():
             logits, hidden = model(X_batch, hidden)
@@ -157,7 +153,7 @@ def evaluate_lstm(model, dataloader, loss_fn, best_acc):
             losses.append(loss.item())
 
             if len(y_batch[0].shape) == 0:
-                y_pred = torch.as_tensor([1 if x > 0.5 else 0 for x in logits])
+                y_pred = torch.as_tensor([1 if x > 0.5 else 0 for x in logits]).to(device)
                 y_bbb = y_batch
             else:
                 y_pred = torch.argmax(logits, dim=1)
@@ -191,7 +187,7 @@ def training_lstm(model, loss_fn, optimizer, train_loader, val_loader, n_epoch=3
 
         for i, batch in tqdm(enumerate(train_loader)):
             X_batch, y_batch = batch
-            hidden = model.init_hidden()
+            hidden = model.init_hidden().to(device)
             # forward pass
             logits, hidden = model(X_batch, hidden)
             # вычисление лосса от выданных сетью ответов и правильных ответов на батч
@@ -210,7 +206,7 @@ def training_lstm(model, loss_fn, optimizer, train_loader, val_loader, n_epoch=3
             num_iter += 1
 
             if len(y_batch[0].shape) == 0:
-                model_answers = torch.as_tensor([1 if x > 0.5 else 0 for x in logits])
+                model_answers = torch.as_tensor([1 if x > 0.5 else 0 for x in logits]).to(device)
                 train_accuracy = torch.sum(y_batch == model_answers) / len(y_batch)
             else:
                 train_accuracy = torch.sum(torch.argmax(y_batch, dim=1) == torch.argmax(logits, dim=1)) / len(y_batch)
