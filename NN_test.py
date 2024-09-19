@@ -65,4 +65,4 @@ model_LSTM.to(device)
 loss_fn = torch.nn.BCELoss()
 optimizer = torch.optim.Adam(model_LSTM.parameters(), lr=1e-2, amsgrad=True)
 
-model_LSTM_res = NN_training.training_lstm(model_LSTM, loss_fn, optimizer, train_loader_bin, val_loader_bin, n_epoch=70)
+model_LSTM_res = NN_training.training_lstm(model_LSTM, loss_fn, optimizer, train_loader_bin, val_loader_bin, n_epoch=150)
