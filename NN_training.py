@@ -114,7 +114,7 @@ def training(model, loss_fn, optimizer, train_loader, val_loader, n_epoch=3):
     plt.subplot(1,2,1)
     plt.plot(acc_train[::len(train_loader)],
              label="Доля правильных ответов на обучающей выборке")
-    plt.plot(acc_val, label="Доля правильных ответов на валидационной выборке")
+    plt.plot(acc_val.cpu(), label="Доля правильных ответов на валидационной выборке")
     plt.xlabel = "Эпоха обучения"
     plt.ylabel = "Доля правильных ответов"
     plt.title("Acc. vs. epoch")
@@ -122,7 +122,7 @@ def training(model, loss_fn, optimizer, train_loader, val_loader, n_epoch=3):
 
     plt.subplot(1, 2, 2)
     plt.plot(loss_train[::len(train_loader)], label="Loss на обучающей выборке")
-    plt.plot(loss_val, label="Loss на валидационной выборке")
+    plt.plot(loss_val.cpu(), label="Loss на валидационной выборке")
     plt.xlabel = "Эпоха обучения"
     plt.ylabel = "Loss"
     plt.title("Loss vs. epoch")
@@ -226,7 +226,7 @@ def training_lstm(model, loss_fn, optimizer, train_loader, val_loader, n_epoch=3
     plt.subplot(1, 2, 1)
     plt.plot(acc_train[::len(train_loader)],
              label="Доля правильных ответов на обучающей выборке")
-    plt.plot(acc_val, label="Доля правильных ответов на валидационной выборке")
+    plt.plot(acc_val.cpu(), label="Доля правильных ответов на валидационной выборке")
     plt.xlabel = "Эпоха обучения"
     plt.ylabel = "Доля правильных ответов"
     plt.title("Acc. vs. epoch")
@@ -234,7 +234,7 @@ def training_lstm(model, loss_fn, optimizer, train_loader, val_loader, n_epoch=3
 
     plt.subplot(1, 2, 2)
     plt.plot(loss_train[::len(train_loader)], label="Loss на обучающей выборке")
-    plt.plot(loss_val, label="Loss на валидационной выборке")
+    plt.plot(loss_val.cpu(), label="Loss на валидационной выборке")
     plt.xlabel = "Эпоха обучения"
     plt.ylabel = "Loss"
     plt.title("Loss vs. epoch")
