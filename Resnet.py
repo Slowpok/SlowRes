@@ -188,11 +188,12 @@ class ResnetTest(nn.Module):
         block, layers = self.cfgs[name]
 
         self.inplanes = 64
+        self.embedding_dim = 100
         self.num_classes = num_classes
         self.name = name
 
-        self.emb1 = nn.Embedding(unique_words, embedding_dim=64, max_norm=size_token)
-        self.conv1 = nn.Conv1d(64, self.inplanes, 7, stride=2, padding=3, bias=False)
+        self.emb1 = nn.Embedding(unique_words, embedding_dim=self.embedding_dim, max_norm=size_token)
+        self.conv1 = nn.Conv1d(self.embedding_dim, self.inplanes, 7, stride=2, padding=3, bias=False)
         self.bn1 = nn.BatchNorm1d(self.inplanes)
         self.relu = nn.ReLU(inplace=True)
         self.maxpool = nn.MaxPool1d(3, stride=2, padding=1)

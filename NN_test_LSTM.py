@@ -1,5 +1,4 @@
 import Datasets
-import Resnet
 import NN_init
 import pandas as pd
 import NN_training
@@ -11,7 +10,7 @@ import LSTM
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # dannye
-ee = pd.read_csv(r"C:\Users\79118\OneDrive\Документы\Нейросет\Материалы датасет3.csv",
+ee = pd.read_csv(filepath_or_buffer=NN_init.finename,
                          names=['title', 'class'], encoding='Windows-1251', delimiter=';', header=0)
 
 x_mass = ee['title']
