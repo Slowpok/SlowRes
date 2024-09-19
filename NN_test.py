@@ -46,13 +46,13 @@ val_loader_bin = data.DataLoader(MyDatasetBin, batch_size=NN_init.batch_size, sh
 resnet34 = Resnet.ResnetTest("resnet34", size_token=NN_init.size_of_array, unique_words=x_mass.shape[0], num_classes=1)
 # resnet101 = Resnet.Resnet("resnet101", size_token=NN_init.size_of_array, unique_words=x_mass.shape[0])
 
-resnet34.to(device)
-loss_fn = torch.nn.BCELoss()
-optimizer = torch.optim.Adam(resnet34.parameters(), lr=NN_init.learning_rate)
-conv_net_res = NN_training.training(resnet34, loss_fn, optimizer, train_loader_bin, val_loader_bin, n_epoch=70)
+# resnet34.to(device)
+# loss_fn = torch.nn.BCELoss()
+# optimizer = torch.optim.Adam(resnet34.parameters(), lr=NN_init.learning_rate)
+# conv_net_res = NN_training.training(resnet34, loss_fn, optimizer, train_loader_bin, val_loader_bin, n_epoch=70)
 
 # теперь обычный вариант 101-й
-resnet101 = Resnet.Resnet("resnet101", size_token=NN_init.size_of_array, unique_words=x_mass.shape[0])
+resnet101 = Resnet.Resnet(name="resnet101", size_token=NN_init.size_of_array, unique_words=x_mass.shape[0])
 resnet101.to(device)
 loss_fn = torch.nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(resnet101.parameters(), lr=NN_init.learning_rate)

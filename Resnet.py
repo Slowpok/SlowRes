@@ -96,11 +96,13 @@ class Resnet(nn.Module):
         block, layers = self.cfgs[name]
 
         self.inplanes = 64
-        embedding_dim = 100
+        self.embedding_dim = 100
+        self.num_classes = num_classes
+        self.name = name
 
-        self.emb1 = nn.Embedding(unique_words, embedding_dim=embedding_dim, max_norm=size_token)
+        self.emb1 = nn.Embedding(unique_words, embedding_dim=self.embedding_dim, max_norm=size_token)
         # self.conv1 = nn.Conv1d(size_token, self.inplanes, 7, stride=2, padding=3, bias=False)
-        self.conv1 = nn.Conv1d(embedding_dim, self.inplanes, 7, stride=2, padding=3, bias=False)
+        self.conv1 = nn.Conv1d(self.embedding_dim, self.inplanes, 7, stride=2, padding=3, bias=False)
         self.bn1 = nn.BatchNorm1d(self.inplanes)
         self.relu = nn.ReLU(inplace=True)
         self.maxpool = nn.MaxPool1d(3, stride=2, padding=1)
@@ -117,7 +119,7 @@ class Resnet(nn.Module):
         self.drop_out = nn.Dropout(0.5)
         self.flatten = nn.Flatten()
         # self.fc = nn.Linear(128*block.expansion, num_classes) # elsi propysheny 3-4 sloy
-        self.fc = nn.Linear(256 * block.expansion, num_classes)  # elsi propyshen 4 sloy
+        self.fc = nn.Linear(256 * block.expansion, self.num_classes)  # elsi propyshen 4 sloy
 
     def forward(self, x):
         #print("prohod osn classa")
