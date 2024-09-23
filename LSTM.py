@@ -38,6 +38,6 @@ class LSTM_Model(nn.Module):
 
         return logits, state
 
-    def init_hidden(self):
-        return (torch.zeros(self.num_layers, NN_init.size_of_array, self.lstm_size, requires_grad=True),
-                torch.zeros(self.num_layers, NN_init.size_of_array, self.lstm_size, requires_grad=True))
+    def init_hidden(self, device):
+        return (torch.zeros(self.num_layers, NN_init.size_of_array, self.lstm_size, requires_grad=True).to(device),
+                torch.zeros(self.num_layers, NN_init.size_of_array, self.lstm_size, requires_grad=True).to(device))

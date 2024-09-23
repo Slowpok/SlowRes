@@ -144,7 +144,7 @@ def evaluate_lstm(model, dataloader, loss_fn, best_acc):
         # так получаем текущий батч
         X_batch, y_batch = batch
         num_elements += len(y_batch)
-        hidden = model.init_hidden()
+        hidden = model.init_hidden(device)
 
         with torch.no_grad():
             logits, hidden = model(X_batch, hidden)
