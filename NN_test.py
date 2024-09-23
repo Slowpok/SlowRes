@@ -26,17 +26,20 @@ counter = Counter(y_mass_bin)
 
 x_mass = pad_sequences(Datasets.string_list_to_sequence(x_mass), NN_init.size_of_array)
 
-x_mass = torch.Tensor(x_mass).to(device)
-# y_mass = torch.Tensor(y_mass).to(device)
-y_mass = torch.as_tensor(y_mass).to(device)
-y_mass_bin = torch.as_tensor(y_mass_bin).to(device)
-
 smote = SMOTE()
 X_smote, y_smote = smote.fit_resample(x_mass, y_mass_bin)
 
 # Convert back to PyTorch tensors
 X_smote = torch.tensor(X_smote)
 y_smote = torch.tensor(y_smote)
+
+x_mass = torch.Tensor(x_mass).to(device)
+X_smote = torch.Tensor(X_smote).to(device)
+# y_mass = torch.Tensor(y_mass).to(device)
+y_mass = torch.as_tensor(y_mass).to(device)
+y_mass_bin = torch.as_tensor(y_mass_bin).to(device)
+y_smote = torch.as_tensor(y_smote).to(device)
+
 
 MyDataset = Datasets.MyDataset(x_mass, y_mass)
 MyDatasetBin = Datasets.MyDataset(x_mass, y_mass_bin)
