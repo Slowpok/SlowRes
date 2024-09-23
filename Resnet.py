@@ -91,9 +91,9 @@ class Resnet(nn.Module):
         "resnet152": (Bottleneck, [3, 8, 36, 3])
     }
 
-    def __init__(self, name, unique_words, size_token, num_classes=2):
+    def __init__(self, name, nettype, unique_words, size_token, num_classes=2):
         super().__init__()
-        block, layers = self.cfgs[name]
+        block, layers = self.cfgs[nettype]
 
         self.inplanes = 64
         self.embedding_dim = 100
@@ -185,9 +185,9 @@ class ResnetTest(nn.Module):
         "resnet152": (Bottleneck, [3, 8, 36, 3])
     }
 
-    def __init__(self, name, unique_words, size_token, num_classes=2):
+    def __init__(self, name, nettype, unique_words, size_token, num_classes=2):
         super().__init__()
-        block, layers = self.cfgs[name]
+        block, layers = self.cfgs[nettype]
 
         self.inplanes = 64
         self.embedding_dim = 100
