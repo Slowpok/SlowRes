@@ -144,7 +144,7 @@ def evaluate_lstm(model, dataloader, loss_fn, best_acc):
         # так получаем текущий батч
         X_batch, y_batch = batch
         num_elements += len(y_batch)
-        hidden = model.init_hidden().to(device)
+        hidden = model.init_hidden()
 
         with torch.no_grad():
             logits, hidden = model(X_batch, hidden)
@@ -189,7 +189,7 @@ def training_lstm(model, loss_fn, optimizer, train_loader, val_loader, n_epoch=3
 
         for i, batch in tqdm(enumerate(train_loader)):
             X_batch, y_batch = batch
-            hidden = model.init_hidden().to(device)
+            hidden = model.init_hidden()
             # forward pass
             logits, hidden = model(X_batch, hidden)
             # вычисление лосса от выданных сетью ответов и правильных ответов на батч
