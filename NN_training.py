@@ -189,7 +189,7 @@ def training_lstm(model, loss_fn, optimizer, train_loader, val_loader, n_epoch=3
 
         for i, batch in tqdm(enumerate(train_loader)):
             X_batch, y_batch = batch
-            hidden = model.init_hidden()
+            hidden = model.init_hidden(device)
             # forward pass
             logits, hidden = model(X_batch, hidden)
             # вычисление лосса от выданных сетью ответов и правильных ответов на батч

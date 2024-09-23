@@ -15,7 +15,7 @@ def model_predict(word, name_model, RM=False):
 
     tensor_word.to(device)
     if RM:
-        hidden = resnet101.init_hidden()
+        hidden = resnet101.init_hidden(device)
         result, hl = resnet101(tensor_word, hidden)
 
     else:

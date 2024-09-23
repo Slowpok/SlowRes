@@ -64,7 +64,7 @@ def get_batch(sequence):
 
 def evaluate(model, char_to_idx, idx_to_char, start_text=' ', prediction_len=200, temp=0.3):
 
-    hidden = model.init_hidden()
+    hidden = model.init_hidden(device)
     idx_input = [char_to_idx[char] for char in start_text]
     train = torch.LongTensor(idx_input).view(-1, 1, 1).to(device)
     predicted_text = start_text
