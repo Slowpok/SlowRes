@@ -70,17 +70,17 @@ val_loader_bin_smote = data.DataLoader(MyDatasetsmote, batch_size=NN_init.batch_
 # eto poka ne ispolzuem
 # conv_net = torch_test.ConvNet(size_token=NN_init.size_of_array, unique_words=x_mass.shape[0])
 
-# сначала - реснет 34 с одним выходом, тут используется рандомная выборка из классов
-resnet34 = Resnet.ResnetTest("resnet34_bin", "resnet34", size_token=NN_init.size_of_array, unique_words=x_mass.shape[0], num_classes=1)
-resnet34.to(device)
-loss_fn = torch.nn.BCELoss()
-optimizer = torch.optim.Adam(resnet34.parameters(), lr=NN_init.learning_rate)
-conv_net_res = NN_training.training(resnet34, loss_fn, optimizer, train_loader_bin, val_loader_bin, n_epoch=70)
+# # сначала - реснет 34 с одним выходом, тут используется рандомная выборка из классов
+# resnet34 = Resnet.ResnetTest("resnet34_bin", "resnet34", size_token=NN_init.size_of_array, unique_words=x_mass.shape[0], num_classes=1)
+# resnet34.to(device)
+# loss_fn = torch.nn.BCELoss()
+# optimizer = torch.optim.Adam(resnet34.parameters(), lr=NN_init.learning_rate)
+# conv_net_res = NN_training.training(resnet34, loss_fn, optimizer, train_loader_bin, val_loader_bin, n_epoch=70)
 
 # теперь обычный вариант 34-й со взвешенными классами
 resnet34_weight = Resnet.Resnet(name="resnet34_weight", nettype="resnet34", size_token=NN_init.size_of_array, unique_words=x_mass.shape[0])
 resnet34_weight.to(device)
-class_weights = torch.tensor([0.1, 0.9])
+class_weights = torch.tensor([0.1, 0.9]).to(device)
 loss_fn = torch.nn.CrossEntropyLoss(weight=class_weights)
 optimizer = torch.optim.Adam(resnet34_weight.parameters(), lr=NN_init.learning_rate)
 conv_net_res2 = NN_training.training(resnet34_weight, loss_fn, optimizer, train_loader, val_loader, n_epoch=70)
