@@ -42,10 +42,10 @@ def evaluate(model, dataloader, loss_fn, best_acc):
     accuracy = num_correct / num_elements
     accuracy = torch.reshape(accuracy, (-1,))[0].cpu().detach().numpy().tolist()
 
-    if best_acc < accuracy:
+    # if best_acc < accuracy:
         # torch.save(model.state_dict(), "best_model.pth")
-        torch.save(model, "whole_best_model" + model.name + ".pth") # пока что сохраняем всю модель, в не словарь
-        new_best = accuracy
+    torch.save(model, "whole_best_model" + model.name + ".pth") # пока что сохраняем всю модель, в не словарь
+    new_best = accuracy
 
     return accuracy, np.mean(losses), new_best
 
@@ -128,7 +128,7 @@ def training(model, loss_fn, optimizer, train_loader, val_loader, n_epoch=3):
     plt.ylabel = "Loss"
     plt.title("Loss vs. epoch")
     plt.legend()
-    plt.show()
+    plt.savefig(model.name+"fig.png")
 
     return model
 
@@ -241,7 +241,7 @@ def training_lstm(model, loss_fn, optimizer, train_loader, val_loader, n_epoch=3
     plt.ylabel = "Loss"
     plt.title("Loss vs. epoch")
     plt.legend()
-    plt.show()
+    plt.savefig(model.name+"lstm_fig.png")
 
     return model
 

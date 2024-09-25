@@ -32,7 +32,7 @@ aa = dict()
 
 list_of_words = ["латун", "бронза","серебро","resnet34","золото","пупупу","военный","шрирача", "лапша", "ст. 12Х18Н9Т","TP316L","005-007-14-2","ic-7,6-2,4-1175","ii-2-150/100х200 амг-ом1","секф.467256.001-02"]
 
-print(NN_predict.mass_model_predict(list_of_words, "resnet34_bin", False))
-# print(aa)
-print(NN_predict.mass_model_predict(list_of_words, "resnet34_weight", False, 2))
-print(NN_predict.mass_model_predict(list_of_words, "resnet34_smote", False))
+# print(NN_predict.mass_model_predict(list_of_words, "resnet34_bin", False))
+# # print(aa)
+# print(NN_predict.mass_model_predict(list_of_words, "resnet34_weight", False, 2))
+print(NN_predict.mass_model_predict(list_of_words, "resnet34_bin-classic", False))

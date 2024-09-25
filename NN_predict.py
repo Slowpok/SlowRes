@@ -47,7 +47,6 @@ def mass_model_predict(list_of_words, name_model, RM=False, dim=None):
         y_pred = torch.argmax(result_list, dim=1)
         y_pred = y_pred.cpu().detach().numpy()
 
-    # result = {key_value: 1 if x > 0.5 else 0 for key_value, x in zip(list_of_words, result_list)}
     result = {key: value for key, value in zip(list_of_words, y_pred)}
     return result
 

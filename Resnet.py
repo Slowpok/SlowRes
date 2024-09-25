@@ -109,17 +109,18 @@ class Resnet(nn.Module):
         self.layer1 = self.make_layer(block, 64, layers[0])
         self.layer2 = self.make_layer(block, 128, layers[1], stride=2)
         self.layer3 = self.make_layer(block, 256, layers[2], stride=2)
-        # self.layer4 = self.make_layer(block, 512, layers[3], stride=2)
+        self.layer4 = self.make_layer(block, 512, layers[3], stride=2)
         # self.avgpool = nn.AvgPool1d(4)
         # self.drop_out = nn.Dropout(0.5)
         # self.flatten = nn.Flatten()
         # self.fc = nn.Linear(512*block.expansion, num_classes)
-        self.avgpool = nn.AvgPool1d(4)  # elsi propyshen 4 sloy
+        self.avgpool = nn.AvgPool1d(2)  # 4 elsi propyshen 4 sloy
         # self.avgpool = nn.AvgPool1d(13) # elsi propysheny 3-4 sloy
         self.drop_out = nn.Dropout(0.5)
         self.flatten = nn.Flatten()
         # self.fc = nn.Linear(128*block.expansion, num_classes) # elsi propysheny 3-4 sloy
-        self.fc = nn.Linear(256 * block.expansion, self.num_classes)  # elsi propyshen 4 sloy
+        # self.fc = nn.Linear(256 * block.expansion, self.num_classes)  # elsi propyshen 4 sloy
+        self.fc = nn.Linear(512 * block.expansion, self.num_classes)  # elsi propyshen 4 sloy
 
     def forward(self, x):
         #print("prohod osn classa")
@@ -142,7 +143,7 @@ class Resnet(nn.Module):
         #print(x.shape, " layer2")
         x = self.layer3(x)
         #print(x.shape, " layer3")
-        # x = self.layer4(x)
+        x = self.layer4(x)
         # print(x.shape, " layer4")
 
         x = self.avgpool(x)
