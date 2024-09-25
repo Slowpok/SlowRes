@@ -7,8 +7,8 @@ from keras._tf_keras.keras.preprocessing.sequence import pad_sequences
 
 def model_predict(word, name_model, RM=False):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    resnet101 = torch.load("whole_best_model" + name_model + ".pth")
-    resnet101.to(device)
+
+    resnet101 = torch.load("whole_best_model" + name_model + ".pth", map_location=device)
     list1 = []
     ww = Datasets.string_to_seq(word)
     list1.append(ww)
@@ -28,7 +28,7 @@ def model_predict(word, name_model, RM=False):
 
 def mass_model_predict(list_of_words, name_model, RM=False, dim=None):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    resnet101 = torch.load("whole_best_model" + name_model + ".pth")
+    resnet101 = torch.load("whole_best_model" + name_model + ".pth", map_location=device)
     resnet101.to(device)
     list_seq = Datasets.string_list_to_sequence(list_of_words)
 
