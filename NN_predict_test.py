@@ -35,4 +35,6 @@ list_of_words = ["латун", "бронза","серебро","resnet34","зо�
 # print(NN_predict.mass_model_predict(list_of_words, "resnet34_bin", False))
 # # print(aa)
 # print(NN_predict.mass_model_predict(list_of_words, "resnet34_weight", False, 2))
-print(NN_predict.mass_model_predict(list_of_words, "resnet34_bin-classic", False))
+print(NN_predict.mass_model_predict(list_of_words, "resnet34_weight", False, 2))
+print(NN_predict.mass_model_predict(list_of_words, "resnet50_weight", False, 2))
+print(NN_predict.mass_model_predict(list_of_words, "resnet34_smote", False))
