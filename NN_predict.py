@@ -20,12 +20,10 @@ def model_predict(word, name_model, RM=False):
     tensor_word.to(device)
     if RM:
         hidden = resnet101.init_hidden(device)
-        result, hl = resnet101(tensor_word, hidden)
+        result, hl = resnet101(tensor_word.to(device), hidden)
 
     else:
-        print(next(resnet101.parameters()).is_cuda, " model")
-        print(tensor_word.is_cuda, " tensor_word")
-        result = resnet101(tensor_word)
+        result_list = resnet101(tensor_word.to(device))
 
     result = torch.reshape(result, (-1,))[0].cpu().detach().numpy()
     return 1 if result > 0.5 else 0
@@ -40,15 +38,12 @@ def mass_model_predict(list_of_words, name_model, RM=False, dim=None):
 
     tensor_word = torch.Tensor(pad_sequences(list_seq, NN_init.size_of_array))
 
-    tensor_word.to(device)
     if RM:
         hidden = resnet101.init_hidden(device)
-        result_list, hl = resnet101(tensor_word, hidden)
+        result_list, hl = resnet101(tensor_word.to(device), hidden)
 
     else:
-        print(next(resnet101.parameters()).is_cuda, " model")
-        print(tensor_word.is_cuda, " tensor_word")
-        result_list = resnet101(tensor_word)
+        result_list = resnet101(tensor_word.to(device))
 
     if dim==None:
         y_pred = result_list.cpu().detach().numpy()
